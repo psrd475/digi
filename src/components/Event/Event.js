@@ -1,6 +1,74 @@
 import React, { Component, Fragment } from 'react';
+import Intro from './Intro';
+
+import {
+  Link,
+  Element,
+  Events,
+  scroller
+} from "react-scroll";
+import About from './About';
+import Speaker from './Speaker';
+import Schedule from './Schedule';
+import Venue from './Venue';
+import Hotels from './Hotels';
+import Gallery from './Gallery';
+import Sponsors from './Sponsors';
+import Faq from './Faq';
+import Subscribe from './Subscribe';
+import BuyTicket from './BuyTicket'
+import Contact from './Contact';
+import Footer from './Footer';
 
 class Event extends Component {
+
+
+  componentDidMount() {
+    Events.scrollEvent.register("begin", function () {
+      console.log("begin", arguments);
+    });
+
+    Events.scrollEvent.register("end", function () {
+      console.log("end", arguments);
+    });
+  }
+  scrollTo(offset) {
+    scroller.scrollTo("scroll-to-element", {
+      duration: 800,
+      delay: 0,
+      smooth: "easeInOutQuart",
+      offset: offset
+    });
+  }
+  scrollToWithContainer() {
+    let goToContainer = new Promise((resolve, reject) => {
+      Events.scrollEvent.register("end", () => {
+        resolve();
+        Events.scrollEvent.remove("end");
+      });
+
+      scroller.scrollTo("scroll-container", {
+        duration: 800,
+        delay: 0,
+        smooth: "easeInOutQuart"
+      });
+    });
+
+    goToContainer.then(() =>
+      scroller.scrollTo("scroll-container-second-element", {
+        duration: 800,
+        delay: 0,
+        smooth: "easeInOutQuart",
+        containerId: "scroll-container",
+        offset: 50
+      })
+    );
+  }
+  componentWillUnmount() {
+    Events.scrollEvent.remove("begin");
+    Events.scrollEvent.remove("end");
+  }
+
   render() {
     return (
       <Fragment>
@@ -13,40 +81,132 @@ class Event extends Component {
               {/* Uncomment below if you prefer to use a text logo */}
               {/* <h1><a href="#intro">The<span>Event</span></a></h1>*/}
               <a href="index.html" className="scrollto">
-                <img src="assets/img/logo.png" alt="" title />
+                <img src="assets/img/logo.png" alt="" title="logo" />
               </a>
             </div>
             <nav id="nav-menu-container">
               <ul className="nav-menu">
                 <li className="menu-active">
-                  <a href="index.html">Home</a>
+                  <Link
+                    activeClass="active"
+                    className="home"
+                    to="home"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    offset={50}
+                  >
+                    Home
+                  </Link>
                 </li>
                 <li>
-                  <a href="#about">About</a>
+                  <Link
+                    activeClass="active"
+                    className="about"
+                    to="about"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                    offset={-55}
+                  >
+                    About
+                  </Link>
                 </li>
                 <li>
-                  <a href="#speakers">Speakers</a>
+                  <Link
+                    activeClass="active"
+                    className="speaker"
+                    to="speaker"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Speaker
+                  </Link>
                 </li>
                 <li>
-                  <a href="#schedule">Schedule</a>
+                  <Link
+                    activeClass="active"
+                    className="schedule"
+                    to="schedule"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Schedule
+                  </Link>
                 </li>
                 <li>
-                  <a href="#venue">Venue</a>
+                  <Link
+                    activeClass="active"
+                    className="venue"
+                    to="venue"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Venue
+                  </Link>
                 </li>
                 <li>
-                  <a href="#hotels">Hotels</a>
+                  <Link
+                    activeClass="active"
+                    className="hotels"
+                    to="hotels"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Hotels
+                  </Link>
                 </li>
                 <li>
-                  <a href="#gallery">Gallery</a>
+                  <Link
+                    activeClass="active"
+                    className="gallery"
+                    to="gallery"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Gallery
+                  </Link>
                 </li>
                 <li>
-                  <a href="#supporters">Sponsors</a>
+                  <Link
+                    activeClass="active"
+                    className="sponsors"
+                    to="sponsors"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Sponsors
+                  </Link>
                 </li>
                 <li>
-                  <a href="#contact">Contact</a>
+                  <Link
+                    activeClass="active"
+                    className="contact"
+                    to="contact"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Contact
+                  </Link>
                 </li>
                 <li className="buy-tickets">
-                  <a href="#buy-tickets">Buy Tickets</a>
+                  <Link
+                    activeClass="active"
+                    className="buy-tickets"
+                    to="buy-tickets"
+                    spy={true}
+                    smooth={true}
+                    duration={500}
+                  >
+                    Buy Tickets
+                  </Link>
                 </li>
               </ul>
             </nav>
@@ -55,36 +215,41 @@ class Event extends Component {
         {
           /* ======= Header End======= */
         }
-        {
-          /* ======= Intro Section ======= */
-        }
-        <section id="intro">
-          <div className="intro-container" data-aos="zoom-in" data-aos-delay={100}>
-            <h1 className="mb-4 pb-0">
-              The Annual
-            <br />
-              <span>Marketing</span> Conference
-            </h1>
-            <p className="mb-4 pb-0">
-              10-12 December, Downtown Conference Center, New York
-            </p>
-            <a
-              href="https://www.youtube.com/watch?v=jDDaplaOz7Q"
-              className="venobox play-btn mb-4"
-              data-vbtype="video"
-              data-autoplay="true"
-            />
-            <a href="#about" className="about-btn scrollto">
-              About The Event
-    </a>
-          </div>
-        </section>;
-        {
-          /* ======= Intro Section End======= */
-        }
-
-
-
+        <div>
+          <Element name="home" className="element" >
+            <Intro />
+          </Element>
+        </div>
+        <main id="main">
+          <Element name="about" className="element">
+            <About />
+          </Element>
+          <Element name="speaker" className="element">
+            <Speaker />
+          </Element>
+          <Element name="schedule" className="element">
+            <Schedule />
+          </Element>
+          <Element name="venue" className="element">
+            <Venue />
+          </Element>
+          <Element name="hotels" className="element">
+            <Hotels />
+          </Element>
+          <Element name="gallery" className="element">
+            <Gallery />
+          </Element>
+          <Element name="sponsors" className="element">
+            <Sponsors />
+          </Element>
+          <Faq />
+          <Subscribe />
+          <BuyTicket />
+          <Element name="contact" className="element">
+            <Contact />
+          </Element>
+        </main>
+        <Footer />
       </Fragment>
     );
   }

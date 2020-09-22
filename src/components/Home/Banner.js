@@ -24,7 +24,6 @@ class Banner extends Component {
               alt="Second slide"
             />
             <Carousel.Caption>
-              <h3>Second slide label</h3>
             </Carousel.Caption>
           </Carousel.Item>
           <Carousel.Item>
@@ -34,7 +33,6 @@ class Banner extends Component {
               alt="Third slide"
             />
             <Carousel.Caption>
-              <h3>Third slide label</h3>
             </Carousel.Caption>
           </Carousel.Item>
         </Carousel>
